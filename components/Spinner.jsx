@@ -1,0 +1,83 @@
+const Spinner = () => {
+  return (
+    <div className="holder">
+      <div className="heart-holder">
+        <div className="lds-heart">
+          <div></div>
+        </div>
+        <h1>Connecting to the Contract and getting your Dashboard</h1>
+      </div>
+
+      <style jsx>{`
+        .holder {
+          width: 100vw;
+          height: 100vh;
+          background: rgba(16, 1, 62, 1);
+          padding-top: 20vh;
+        }
+        .heart-holder {
+          color: white;
+          text-align: center;
+          max-width: 600px;
+          max-height: 200px;
+          margin: auto auto;
+        }
+        .lds-heart {
+          display: inline-block;
+          position: relative;
+          width: 80px;
+          height: 80px;
+          transform: rotate(45deg);
+          transform-origin: 40px 40px;
+        }
+        .lds-heart div {
+          top: 32px;
+          left: 32px;
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          background: red;
+          animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        .lds-heart div:after,
+        .lds-heart div:before {
+          content: " ";
+          position: absolute;
+          display: block;
+          width: 32px;
+          height: 32px;
+          background: red;
+        }
+        .lds-heart div:before {
+          left: -24px;
+          border-radius: 50% 0 0 50%;
+        }
+        .lds-heart div:after {
+          top: -24px;
+          border-radius: 50% 50% 0 0;
+        }
+        @keyframes lds-heart {
+          0% {
+            transform: scale(0.95);
+          }
+          5% {
+            transform: scale(1.1);
+          }
+          39% {
+            transform: scale(0.85);
+          }
+          45% {
+            transform: scale(1);
+          }
+          60% {
+            transform: scale(0.95);
+          }
+          100% {
+            transform: scale(0.9);
+          }
+        }
+      `}</style>
+    </div>
+  );
+};
+export default Spinner;
