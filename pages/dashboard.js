@@ -5,9 +5,9 @@ import Router from "next/router";
 import Spinner from "../components/Spinner";
 import Navigation from "../components/Navigation";
 import InfoHeader from "../components/InfoHeader";
-import Sidebar from "../components/Sidebar";
-import X3MatrixHolder from "../components/X3MatrixHolder";
-import X4MatrixHolder from "../components/X4MatrixHolder";
+import Sidebar from "../components/sidebar/Sidebar";
+import X3MatrixHolder from "../components/matrix/X3MatrixHolder";
+import X4MatrixHolder from "../components/matrix/X4MatrixHolder";
 
 class Dashboard extends Component {
   async UNSAFE_componentWillMount() {
