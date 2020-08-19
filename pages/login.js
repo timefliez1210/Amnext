@@ -1,5 +1,5 @@
-import AutoLogin from "../components/AutoLogin";
-import ManualLogin from "../components/ManualLogin";
+import AutoLogin from "../components/login/AutoLogin";
+import ManualLogin from "../components/login/ManualLogin";
 
 const Login = () => {
   return (
