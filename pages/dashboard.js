@@ -23,14 +23,20 @@ class Dashboard extends Component {
       this.setState({ account: accounts[0] });
       const contract = new web3.eth.Contract(ABI, ADDRESS);
       this.setState({ contract });
+      const address = ADDRESS;
+      this.setState({ address });
       const isExists = await contract.methods
         .isUserExists(this.state.account)
         .call();
       this.setState({ isExist: isExists });
+
+      // Bundled Promises
       const userId = await this.state.contract.methods
         .users(this.state.account)
         .call();
       this.setState({ userIds: userId.id, parnterCount: userId.partnersCount });
+
+      // Error Catch
     } catch (err) {
       window.alert("Please check if you have connected to the MATIC Chain");
     }
@@ -79,6 +85,8 @@ class Dashboard extends Component {
                   <Sidebar
                     userIds={this.state.userIds}
                     partnersCount={this.state.parnterCount}
+                    account={this.state.account}
+                    address={this.state.address}
                   />
                 </div>
                 <div className="big-box">
