@@ -78,7 +78,7 @@ const Navigation = () => {
         }
 
         nav ul li a {
-          color: grey;
+          color: #6a668f;
         }
       `}</style>
     </nav>
