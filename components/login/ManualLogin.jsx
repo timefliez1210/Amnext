@@ -1,22 +1,21 @@
 import React, { Component } from "react";
+import AccountContext from "../AccountContext";
+import { ABI, ADDRESS } from "../../ethereum/web3";
+import Web3 from "web3";
+import Router from "next/router";
 
 class ManualLogin extends Component {
+  static contextType = AccountContext;
+
   async loadBlockchainData() {
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    const accounts = await web3.eth.getAccounts();
-    this.setState({ account: accounts[0] });
+    this.setState({ account: this.context.account });
     const contract = new web3.eth.Contract(ABI, ADDRESS);
     this.setState({ contract });
     const isExists = await contract.methods
       .isUserExists(this.state.account)
-      .call()
-      .catch((e) => {
-        console.log("Something went wrong");
-      });
+      .call();
     this.setState({ isExist: isExists });
-    const costs = await contract.methods.registrationCost().call();
-    this.setState({ cost: costs });
-    this.setState({ isLoading: false });
   }
 
   async loadWeb3() {
@@ -33,14 +32,18 @@ class ManualLogin extends Component {
   }
 
   async login() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
-    if (userExist) {
-      console.log(userExist);
-    } else {
-      window.alert(
-        "The user you are looking for doesn't exist. Try another one!"
-      );
+    try {
+      await this.loadWeb3();
+      await this.loadBlockchainData();
+      if (this.state.isExist) {
+        Router.push("/dashboard");
+      } else {
+        window.alert(
+          "The user you are looking for doesn't exist. Try another one!"
+        );
+      }
+    } catch (err) {
+      window.alert("Invalid ETH ADDRESS, Checksum doesnt match");
     }
   }
 
@@ -49,17 +52,32 @@ class ManualLogin extends Component {
     this.state = {
       account: "",
       isExist: false,
-      cost: "",
     };
   }
   render() {
+    const { account, setAccount } = this.context;
     return (
       <>
-        <form className="manual">
+        <form
+          className="manual"
+          onSubmit={async (event) => {
+            event.preventDefault();
+            const newUser = this.state.account;
+            setAccount(newUser);
+            this.login();
+          }}
+        >
           <input
             type="text"
-            id="fname"
-            name="fname"
+            onChange={(event) => {
+              const address = this.input.value.toString();
+              this.setState({
+                account: address,
+              });
+            }}
+            ref={(input) => {
+              this.input = input;
+            }}
             placeholder="Wallet Address or ID..."
           />
           <button className="manual-btn">

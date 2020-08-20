@@ -2,20 +2,21 @@ import React, { Component } from "react";
 import Web3 from "web3";
 import { ABI, ADDRESS } from "../../ethereum/web3";
 import Router from "next/router";
+import AccountContext from "../AccountContext";
 
 class AutoLogin extends Component {
+  static contextType = AccountContext;
+
   async loadBlockchainData() {
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
+
     const contract = new web3.eth.Contract(ABI, ADDRESS);
     this.setState({ contract });
     const isExists = await contract.methods
       .isUserExists(this.state.account)
-      .call()
-      .catch((err) => {
-        console.log("Something went wrong");
-      });
+      .call();
     this.setState({ isExist: isExists });
     const costs = await contract.methods.registrationCost().call();
     this.setState({ cost: costs });
@@ -67,14 +68,17 @@ class AutoLogin extends Component {
     }
   }
   render() {
+    const { account, setAccount } = this.context;
     const isLoading = this.state.loading;
     return (
       <>
         <form
           className="automatic"
-          onSubmit={(event) => {
+          onSubmit={async (event) => {
             event.preventDefault();
-            this.register(this.state.refererAddress);
+            await this.register(this.state.refererAddress);
+            const newUser = this.state.account;
+            setAccount(newUser);
           }}
         >
           <button className="auto">
