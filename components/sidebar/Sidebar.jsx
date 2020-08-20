@@ -26,22 +26,22 @@ const Sidebar = (props) => {
 
       <SidebarContent
         title="Balance"
-        balance_usd="200000usd"
-        balance_eth="232222eth"
+        balance_usd={props.balance * 2 + " $"}
+        balance_eth={props.balance + " ETH"}
       />
       <div className="oneMillion"></div>
       <Divider />
       <SidebarContent
         title="Forsage"
         matrix="x3"
-        balance_usd="1239 USD"
-        balance_eth="1239 ETH"
+        balance_usd={props.balance * 2 + " $"}
+        balance_eth={props.balance + " ETH"}
       />
       <SidebarContent
         title="Forsage"
         matrix="x4"
-        balance_usd="1239 USD"
-        balance_eth="1239 ETH"
+        balance_usd={props.balance * 2 + " $"}
+        balance_eth={props.balance + " ETH"}
       />
       <Divider />
       <UserContent

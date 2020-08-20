@@ -40,6 +40,10 @@ class Dashboard extends Component {
       });
       const userCount = await this.state.contract.methods.lastUserId().call();
       this.setState({ totalUsers: userCount });
+      const balance = await this.state.contract.methods
+        .balances(this.state.account)
+        .call();
+      this.setState({ balance });
 
       // Error Catch
     } catch (err) {
@@ -74,7 +78,6 @@ class Dashboard extends Component {
       parnterCount: "",
       loading: true,
       totalUsers: "",
-      userBalance: "",
     };
   }
 
@@ -95,6 +98,7 @@ class Dashboard extends Component {
                     partnersCount={this.state.parnterCount}
                     account={this.state.account}
                     address={this.state.address}
+                    balance={this.state.balance}
                   />
                 </div>
                 <div className="big-box">
@@ -114,8 +118,14 @@ class Dashboard extends Component {
                 .pagination {
                   margin-top: 2vh;
                   display: grid;
-                  grid-template-columns: 25% 70%;
+                  grid-template-columns: 30% 65%;
                   grid-gap: 5%;
+                }
+                @media only screen and (max-width: 900px) {
+                  .pagination {
+                    grid-template-columns: 1fr;
+                    grid-gap: 5%;
+                  }
                 }
               `}</style>
             </div>

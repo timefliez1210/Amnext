@@ -7,9 +7,7 @@ const Login = () => {
       <>
         <div className="header">
           <div className="hero-image">
-            <div className="picture-holder">
-              <img className="hero" src="/assets/img/hero-picture.jpg"></img>
-            </div>
+            <div className="picture-holder"></div>
           </div>
           <div className="form-part">
             <h1>To view account ID or enter ETH purse</h1>
@@ -34,10 +32,14 @@ const Login = () => {
           .hero-image {
             width: 70vw;
             height: 100vw;
-            padding: 300px;
           }
           .picture-holder {
             width: 100%;
+            height: 100vh;
+            background-image: url("/assets/img/hero-picture.jpg");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
           }
           .hero {
             width: 100%;
@@ -91,6 +93,15 @@ const Login = () => {
             border-radius: 30px;
             color: white;
             font-size: 1.2em;
+          }
+          @media only screen and (max-width: 1000px) {
+            .hero-image {
+              display: none;
+            }
+            .form-part {
+              width: 95vw;
+              margin: auto auto;
+            }
           }
         `}</style>
       </>
