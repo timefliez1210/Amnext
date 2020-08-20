@@ -34,10 +34,16 @@ class Dashboard extends Component {
       const userId = await this.state.contract.methods
         .users(this.state.account)
         .call();
-      this.setState({ userIds: userId.id, parnterCount: userId.partnersCount });
+      this.setState({
+        userIds: userId.id,
+        parnterCount: userId.partnersCount,
+      });
+      const userCount = await this.state.contract.methods.lastUserId().call();
+      this.setState({ totalUsers: userCount });
 
       // Error Catch
     } catch (err) {
+      console.log(err);
       window.alert("Please check if you have connected to the MATIC Chain");
     }
   }
@@ -67,6 +73,8 @@ class Dashboard extends Component {
       userIds: "",
       parnterCount: "",
       loading: true,
+      totalUsers: "",
+      userBalance: "",
     };
   }
 
@@ -79,7 +87,7 @@ class Dashboard extends Component {
           <>
             <Navigation />
             <div className="dashboard">
-              <InfoHeader />
+              <InfoHeader totalUsers={this.state.totalUsers} />
               <div className="pagination">
                 <div className="small-box">
                   <Sidebar

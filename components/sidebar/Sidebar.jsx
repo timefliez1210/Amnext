@@ -5,13 +5,25 @@ import UserContent from "./UserContent";
 const Sidebar = (props) => {
   return (
     <div className="sidebar">
-      ID: {props.userIds}
-      <br />
-      <br />
-      {props.partnersCount}
-      <br />
-      <br />
-      <div className="earnings">$4,000,000</div>
+      <div className="profile">
+        <div>
+          <p>
+            <img src="/assets/img/user_simple.jpg" height="40px" /> {""} {""}
+            ID: {props.userIds}
+          </p>
+          <br />
+          <br />
+          <img src="/assets/img/partners.jpg" width="60px" />
+          {props.partnersCount}
+          <br />
+          <br />
+        </div>
+        <img src="/assets/img/cube.jpg" width="100%" />
+      </div>
+      <div className="earnings">
+        <b>$4,000,000</b>
+      </div>
+
       <SidebarContent
         title="Balance"
         balance_usd="200000usd"
@@ -46,7 +58,7 @@ const Sidebar = (props) => {
           padding: 10px;
         }
         .earnings {
-          width: 80%;
+          width: 90%;
           margin: 10px auto;
           background: rgb(252, 132, 118);
           background: linear-gradient(
@@ -57,8 +69,18 @@ const Sidebar = (props) => {
           border: none;
           color: white;
           border-radius: 10px;
-          padding: 10px 20px;
+          padding: 15px 20px;
           text-align: center;
+          font-size: 1.3em;
+        }
+        .profile {
+          width: 90%;
+          margin: auto auto;
+          display: grid;
+          grid-template-columns: 150px auto;
+        }
+        .profile p {
+          font-size: 25px;
         }
       `}</style>
     </div>
