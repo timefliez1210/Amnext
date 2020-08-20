@@ -29,6 +29,11 @@ const Login = () => {
             background: rgba(16, 1, 62, 1);
             display: flex;
           }
+          @media only screen and (max-width: 1000px) {
+            .header {
+              height: auto;
+            }
+          }
           .hero-image {
             width: 70vw;
             height: 100vw;
