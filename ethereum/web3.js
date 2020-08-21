@@ -313,4 +313,6 @@ export const ABI = [
 
 export const ADDRESS = "0xe1bBb63e8cAC9361f0c07Ad6AEE12c2893D42735";
 
+export const OWNER = "";
+
 // https://mumbai-explorer.matic.today/address/0xe1bBb63e8cAC9361f0c07Ad6AEE12c2893D42735/contracts

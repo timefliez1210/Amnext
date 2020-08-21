@@ -13,7 +13,6 @@ class AccountProvider extends Component {
 
   //Method to update
   setAccount = (account) => {
-    // account.stringify();
     this.setState((prevState) => ({ account }));
   };
 

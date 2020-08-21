@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Web3 from "web3";
-import { ABI, ADDRESS } from "../../ethereum/web3";
+import { ABI, ADDRESS, OWNER } from "../../utils/globals";
+import { loadWeb3 } from "../../utils/utility";
 import Router from "next/router";
 import AccountContext from "../AccountContext";
 
@@ -23,19 +24,6 @@ class AutoLogin extends Component {
     this.setState({ isLoading: false });
   }
 
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -43,13 +31,13 @@ class AutoLogin extends Component {
       isExist: false,
       cost: "",
       loading: false,
-      refererAddress: "0xf2aA26723ed7b099845afE69FA4929A46BC00245",
+      refererAddress: OWNER,
     };
   }
 
   async register(_refererAddress) {
     this.setState({ loading: true });
-    await this.loadWeb3();
+    await loadWeb3();
     await this.loadBlockchainData();
     if (this.state.isExist) {
       Router.push("/dashboard");
