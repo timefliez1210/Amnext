@@ -1,7 +1,7 @@
 const X4matrix = (props) => {
   return (
     <>
-      <div classname="holder">
+      <div className="holder">
         <div className="matrix-head">
           <div className="level">{props.id}</div>
           <div className="id">{props.cost}</div>

@@ -7,8 +7,8 @@ import Spinner from "../components/Spinner";
 import Navigation from "../components/Navigation";
 import InfoHeader from "../components/InfoHeader";
 import Sidebar from "../components/sidebar/Sidebar";
-import X3MatrixHolder from "../components/matrix/X3MatrixHolder";
-import X4MatrixHolder from "../components/matrix/X4MatrixHolder";
+import MatrixSystem from "../components/matrix/MatrixSystem";
+
 // Context API
 import AccountContext from "../components/AccountContext";
 
@@ -43,6 +43,8 @@ class Dashboard extends Component {
         .balances(this.state.account)
         .call();
       this.setState({ balance });
+
+      // Matrix Calls
       const costs = await contract.methods.registrationCost().call();
       this.setState({ cost: costs });
 
@@ -73,9 +75,6 @@ class Dashboard extends Component {
         .balances(this.state.account)
         .call();
       this.setState({ balance });
-      const costs = await contract.methods.registrationCost().call();
-      const costEth = web3.utils.fromWei(costs, "ether");
-      this.setState({ cost: costEth });
     }
   }
 
@@ -85,10 +84,9 @@ class Dashboard extends Component {
       account: "",
       isExist: true,
       userIds: "",
-      parnterCount: "",
       loading: true,
       totalUsers: "",
-      cost: "",
+      parnterCount: "",
     };
   }
 
@@ -113,8 +111,7 @@ class Dashboard extends Component {
                   />
                 </div>
                 <div className="big-box">
-                  <X3MatrixHolder cost={this.state.cost} />
-                  <X4MatrixHolder cost={this.state.cost} />
+                  <MatrixSystem account={this.state.account} />
                 </div>
               </div>
 
