@@ -19,16 +19,3 @@ export const loadWeb3 = async () => {
     window.alert("Trouble connecting to you web3 browser...");
   }
 };
-
-// General loading from the blockchain and instantiating the contract
-
-export const loadBlockchainData = async () => {
-  const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-  this.setState({ account: this.context.account });
-  const contract = new web3.eth.Contract(ABI, ADDRESS);
-  this.setState({ contract });
-  const isExists = await contract.methods
-    .isUserExists(this.state.account)
-    .call();
-  this.setState({ isExist: isExists });
-};
