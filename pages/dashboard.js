@@ -43,6 +43,8 @@ class Dashboard extends Component {
         .balances(this.state.account)
         .call();
       this.setState({ balance });
+      const costs = await contract.methods.registrationCost().call();
+      this.setState({ cost: costs });
 
       // Error Catch -> Fetch the new Data directly from web3 provider after reload
     } catch (err) {
@@ -71,6 +73,9 @@ class Dashboard extends Component {
         .balances(this.state.account)
         .call();
       this.setState({ balance });
+      const costs = await contract.methods.registrationCost().call();
+      const costEth = web3.utils.fromWei(costs, "ether");
+      this.setState({ cost: costEth });
     }
   }
 
@@ -83,6 +88,7 @@ class Dashboard extends Component {
       parnterCount: "",
       loading: true,
       totalUsers: "",
+      cost: "",
     };
   }
 
@@ -107,8 +113,8 @@ class Dashboard extends Component {
                   />
                 </div>
                 <div className="big-box">
-                  <X3MatrixHolder />
-                  <X4MatrixHolder />
+                  <X3MatrixHolder cost={this.state.cost} />
+                  <X4MatrixHolder cost={this.state.cost} />
                 </div>
               </div>
 
