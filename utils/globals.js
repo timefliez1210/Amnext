@@ -315,6 +315,6 @@ export const ADDRESS = "0xe1bBb63e8cAC9361f0c07Ad6AEE12c2893D42735";
 
 export const OWNER = "0xf2aA26723ed7b099845afE69FA4929A46BC00245";
 
-export const BASE_URL = "https://amnext.netlify.app/";
+export const BASE_URL = "https://amnext.vercel.app/";
 
 // https://mumbai-explorer.matic.today/address/0xe1bBb63e8cAC9361f0c07Ad6AEE12c2893D42735/contracts
