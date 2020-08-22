@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Web3 from "web3";
-import { ABI, ADDRESS } from "../ethereum/web3";
+import { ABI, ADDRESS } from "../utils/globals";
+import { loadWeb3 } from "../utils/utility";
 import Router from "next/router";
 import Spinner from "../components/Spinner";
 import Navigation from "../components/Navigation";
@@ -16,7 +17,7 @@ class Dashboard extends Component {
 
   async UNSAFE_componentWillMount() {
     this.setState({ account: this.context.account });
-    await this.loadWeb3();
+    await loadWeb3();
     await this.loadBlockchainData();
     this.setState({ loading: false });
   }
@@ -70,23 +71,6 @@ class Dashboard extends Component {
         .balances(this.state.account)
         .call();
       this.setState({ balance });
-    }
-  }
-
-  async loadWeb3() {
-    try {
-      if (window.ethereum) {
-        window.web3 = new Web3(window.ethereum);
-        await window.ethereum.enable();
-      } else if (window.web3) {
-        window.web3 = new Web3(window.web3.currentProvider);
-      } else {
-        window.alert(
-          "Non-Ethereum browser detected. You should consider trying MetaMask!"
-        );
-      }
-    } catch (err) {
-      window.alert("Trouble connecting to you web3 browser...");
     }
   }
 

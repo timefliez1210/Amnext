@@ -159,8 +159,4 @@ class RefLink extends Component {
   }
 }
 
-export async function getServerSideProps() {
-  return { props: { data } };
-}
-
 export default RefLink;

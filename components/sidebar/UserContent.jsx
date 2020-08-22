@@ -1,17 +1,38 @@
+import React, { useRef, useState } from "react";
+
 const UserContent = (props) => {
+  const [copySuccess, setCopySuccess] = useState("");
+  const inputRef = useRef(null);
+  function copyToClipboard(e) {
+    inputRef.current.select();
+    document.execCommand("copy");
+    e.target.focus();
+    setCopySuccess("Copied!");
+  }
+
   return (
     <>
       <div className="content-user">
         <h4>{props.title}</h4>
-        <input
-          type="text"
-          disabled="disabled"
-          placeholder={props.placeholder}
-        />
+        <form>
+          <input ref={inputRef} value={props.placeholder} />
+        </form>
         <br />
-        <button className="copy">Copy</button>
-        <button className="etherscan">To Etherscan</button>
+        {
+          /* Logical shortcut for only displaying the 
+          button if the copy command exists */
+          document.queryCommandSupported("copy") && (
+            <div>
+              <button className="copy" onClick={copyToClipboard}>
+                Copy
+              </button>
+              <button className="etherscan">To Etherscan</button>
+            </div>
+          )
+        }
+        <div className="success">{copySuccess}</div>
       </div>
+
       <style jsx>{`
         h4 {
           margin-top: 5px;
@@ -33,12 +54,22 @@ const UserContent = (props) => {
           border-radius: 10px;
           background: #271950;
           border: none;
-        }
-        input::placeholder {
           color: white;
         }
-        input::disabled {
-          background: #271950;
+        input::placeholder {
+        }
+        .success {
+          background: rgb(0, 237, 47);
+          background: linear-gradient(
+            306deg,
+            rgba(0, 237, 47, 1) 29%,
+            rgba(0, 179, 35, 1) 64%,
+            rgba(0, 179, 35, 1) 83%
+          );
+          color: white;
+          width: 50%;
+          margin: 20px auto;
+          font-style: bold;
         }
         button {
           margin: 10px 15px;
@@ -65,4 +96,22 @@ const UserContent = (props) => {
 
 export default UserContent;
 
-// #27db92
+{
+  /* <div>
+{
+  document.queryCommandSupported("copy") && (
+    <div>
+      <button onClick={copyToClipboard}>Copy</button>
+      {copySuccess}
+    </div>
+  )
+}
+<form>
+  <textarea ref={inputRef} value="Some text to copy" />
+</form>
+</div> */
+}
+
+// type="text"
+// disabled="disabled"
+// placeholder={props.placeholder}

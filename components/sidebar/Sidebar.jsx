@@ -1,6 +1,7 @@
 import SidebarContent from "./SidebarContent";
 import Divider from "./Divider";
 import UserContent from "./UserContent";
+import { BASE_URL } from "../../utils/globals";
 
 const Sidebar = (props) => {
   return (
@@ -46,7 +47,7 @@ const Sidebar = (props) => {
       <Divider />
       <UserContent
         title="Affiliate Link"
-        placeholder={"www.sonstwas.io/" + props.userIds}
+        placeholder={BASE_URL + "ref/" + props.userIds}
       />
       <UserContent title="Your Ethereum Wallet" placeholder={props.account} />
       <UserContent title="Smart Contract Address" placeholder={props.address} />

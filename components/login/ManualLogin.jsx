@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AccountContext from "../AccountContext";
-import { ABI, ADDRESS } from "../../ethereum/web3";
+import { ABI, ADDRESS } from "../../utils/globals";
+import { loadWeb3 } from "../../utils/utility";
 import Web3 from "web3";
 import Router from "next/router";
 
@@ -8,32 +9,24 @@ class ManualLogin extends Component {
   static contextType = AccountContext;
 
   async loadBlockchainData() {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-    this.setState({ account: this.context.account });
-    const contract = new web3.eth.Contract(ABI, ADDRESS);
-    this.setState({ contract });
-    const isExists = await contract.methods
-      .isUserExists(this.state.account)
-      .call();
-    this.setState({ isExist: isExists });
-  }
-
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+    try {
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+      this.setState({ account: this.context.account });
+      const contract = new web3.eth.Contract(ABI, ADDRESS);
+      this.setState({ contract });
+      const isExists = await contract.methods
+        .isUserExists(this.state.account)
+        .call();
+      this.setState({ isExist: isExists });
+    } catch (e) {
+      window.alert("Trouble Connecting please try again!" + e);
+      return;
     }
   }
 
   async login() {
     try {
-      await this.loadWeb3();
+      await loadWeb3();
       await this.loadBlockchainData();
       if (this.state.isExist) {
         Router.push("/dashboard");
