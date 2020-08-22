@@ -34,6 +34,8 @@ const X4matrix = (props) => {
           border-radius: 20px;
           font-style: bold;
           font-size: 1.2em;
+          height: 70px;
+          overflow: hidden;
         }
         .level {
           background: #338eff;

@@ -37,11 +37,11 @@ const X4MatrixHolder = (props) => {
           width: 100%;
           background: rgba(28, 22, 85, 1);
           border-radius: 0 0 20px 20px;
-          padding: 10px 20px;
+          padding: 10px 10px;
           border-top: 2px solid black;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          grid-gap: 50px;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-gap: 30px;
         }
       `}</style>
     </>
