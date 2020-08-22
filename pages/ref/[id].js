@@ -5,12 +5,6 @@ import { ABI, ADDRESS, OWNER } from "../../utils/globals";
 import { loadWeb3 } from "../../utils/utility";
 
 class RefLink extends Component {
-  static async getServerSideProps(ctx) {
-    const res = await fetch("https://api.github.com/repos/vercel/next.js");
-    const json = await res.json();
-    return { stars: json.stargazers_count };
-  }
-
   async loadBlockchainData() {
     this.setState({ id: Router.query.id });
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
