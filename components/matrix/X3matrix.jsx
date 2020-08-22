@@ -275,17 +275,16 @@ const X3matrix = (props) => {
     return (
       <>
         <div className="holder">
-          <button
-            className="buy-level"
-            onClick={() => {
-              console.log(props.cost);
-            }}
-          >
-            Buy
-          </button>
           <div className="matrix-head">
             <div className="level">{props.id}</div>
-            <div className="id">{props.cost}</div>
+            <button
+              className="buy-level"
+              onClick={() => {
+                window.alert(props.cost);
+              }}
+            >
+              Buy for {props.cost}
+            </button>
           </div>
           <div className="items">
             <div className="lines"></div>
@@ -301,12 +300,9 @@ const X3matrix = (props) => {
         <style jsx>{`
           .buy-level {
             border: none;
-            background: red;
+            background: none;
             color: white;
-            font-size: 1.2em;
-            position: relative;
-            right: 0px;
-            z-index: 100000000;
+            font-size: 1em;
           }
           .holder {
             width: auto;
