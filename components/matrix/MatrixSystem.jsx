@@ -43,11 +43,29 @@ class MatrixSystem extends Component {
           cost: (this.state.cost / 2) * j,
         });
       }
-
-      this.setState({ elements });
+      const x3Exist = [];
+      for (let i = 1; i < 13; i++) {
+        const res = await contract.methods
+          .usersActiveX3Levels(this.state.account, i)
+          .call();
+        x3Exist.push({
+          id: i,
+          userX3Exist: res,
+        });
+      }
+      const x3Payload = this.x3Infos(x3Exist, elements);
+      this.setState({ x3Payload });
     } catch (err) {
       window.alert(err);
     }
+  }
+
+  x3Infos(arr1, arr2) {
+    return arr1.map((item, i) => {
+      if (item.id === arr2[i].id) {
+        return Object.assign({}, item, arr2[i]);
+      }
+    });
   }
 
   constructor(props) {
@@ -61,7 +79,7 @@ class MatrixSystem extends Component {
   render() {
     return (
       <>
-        <X3MatrixHolder struc={this.state.elements} />
+        <X3MatrixHolder struc={this.state.x3Payload} />
         <X4MatrixHolder cost={this.state.cost} />
       </>
     );

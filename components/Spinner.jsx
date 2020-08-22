@@ -10,9 +10,7 @@ const Spinner = () => {
 
       <style jsx>{`
         .holder {
-          width: 100vw;
-          height: 100vh;
-          background: rgba(16, 1, 62, 1);
+          background: none;
           padding-top: 20vh;
         }
         .heart-holder {
