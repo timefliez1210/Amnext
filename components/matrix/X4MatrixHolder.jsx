@@ -9,7 +9,7 @@ const X4MatrixHolder = (props) => {
       setReload(1);
     }
   }, reload);
-  console.log(props.struc);
+
   if (props.struc === undefined) {
     return (
       <div className="upper-holder">
@@ -59,6 +59,7 @@ const X4MatrixHolder = (props) => {
                 cost={matrix.cost}
                 bought={matrix.userX4Exist}
                 structure={matrix.userX6}
+                account={props.account}
               />
             ))}
           </div>

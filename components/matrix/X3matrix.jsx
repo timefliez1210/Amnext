@@ -1,6 +1,43 @@
 import Circle from "./Circle";
+import { loadWeb3 } from "../../utils/utility";
+import { ABI, ADDRESS } from "../../utils/globals";
+import Web3 from "web3";
 
 const X3matrix = (props) => {
+  const cost = props.cost;
+  const id = props.id;
+  const buyLevel = async () => {
+    try {
+      await loadWeb3();
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+      const contract = new web3.eth.Contract(ABI, ADDRESS);
+
+      await contract.methods
+        .buyNewLevel(1, id)
+        .send({
+          value: cost,
+          from: props.account,
+        })
+        .then(function (receipt) {
+          window.alert("Succes!");
+        });
+    } catch (err) {
+      window.alert("Something went wrong.. Check: " + err);
+    }
+
+    // type: "uint8", name: "matrix", internalType: "uint8"
+    // await this.state.contract.methods
+    //     .registrationExt(_refererAddress)
+    //     .send({
+    //       value: this.state.cost,
+    //       from: this.state.account,
+    //     })
+    //     .then(function (receipt) {
+    //       Router.push("/dashboard");
+    //       this.setState({ loading: false });
+    //     });
+  };
+  console.log(props.account);
   if (props.bought) {
     if (props.active === 0) {
       return (
@@ -279,8 +316,8 @@ const X3matrix = (props) => {
             <div className="level">{props.id}</div>
             <button
               className="buy-level"
-              onClick={() => {
-                window.alert(props.cost);
+              onClick={async () => {
+                await buyLevel();
               }}
             >
               Buy for {props.cost}

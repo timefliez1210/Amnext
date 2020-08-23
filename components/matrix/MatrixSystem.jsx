@@ -23,8 +23,8 @@ class MatrixSystem extends Component {
       this.setState({ contract });
 
       const costs = await contract.methods.registrationCost().call();
-      const _costs = web3.utils.fromWei(costs, "ether");
-      this.setState({ cost: _costs });
+
+      this.setState({ cost: costs });
       // Matrix Calls for the X3
       const x3 = [];
       for (let i = 1; i < 13; i++) {
@@ -37,15 +37,18 @@ class MatrixSystem extends Component {
         });
       }
       const elementsX3 = [];
+      var _cost = this.state.cost / 2;
       for (let i = 0; i < 12; i++) {
         let j = i + 1;
+
         const downlines = x3[i].userX3[1].length;
         elementsX3.push({
           id: j,
           number: downlines,
           key: j,
-          cost: (this.state.cost / 2) * j,
+          cost: _cost,
         });
+        _cost = _cost * 2;
       }
       const x3Exist = [];
       for (let i = 1; i < 13; i++) {
@@ -61,6 +64,7 @@ class MatrixSystem extends Component {
       this.setState({ x3Payload });
 
       // Matrix Calls for the X4
+      var _x4cost = this.state.cost / 2;
       const x4Exist = [];
       for (let i = 1; i < 13; i++) {
         const res = await contract.methods
@@ -70,8 +74,9 @@ class MatrixSystem extends Component {
           id: i,
           userX4Exist: res,
           key: i,
-          cost: (this.state.cost / 2) * i,
+          cost: _x4cost,
         });
+        _x4cost = _x4cost * 2;
       }
       const x6 = [];
       for (let i = 1; i < 13; i++) {
@@ -111,8 +116,14 @@ class MatrixSystem extends Component {
   render() {
     return (
       <>
-        <X3MatrixHolder struc={this.state.x3Payload} />
-        <X4MatrixHolder struc={this.state.x6Payload} />
+        <X3MatrixHolder
+          struc={this.state.x3Payload}
+          account={this.state.account}
+        />
+        <X4MatrixHolder
+          struc={this.state.x6Payload}
+          account={this.state.account}
+        />
       </>
     );
   }

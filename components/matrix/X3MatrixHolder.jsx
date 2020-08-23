@@ -59,6 +59,7 @@ const X3MatrixHolder = (props) => {
                 cost={matrix.cost}
                 active={matrix.number}
                 bought={matrix.userX3Exist}
+                account={props.account}
               />
             ))}
           </div>

@@ -1,6 +1,9 @@
 import FirstLine from "./x4structure/FirstLine";
 import SecondLine from "./x4structure/SecondLine";
 import React, { useState, useEffect } from "react";
+import { loadWeb3 } from "../../utils/utility";
+import { ABI, ADDRESS } from "../../utils/globals";
+import Web3 from "web3";
 
 const X4matrix = (props) => {
   const [exist1, setExist1] = useState(false);
@@ -9,6 +12,9 @@ const X4matrix = (props) => {
   const [exist4, setExist4] = useState(false);
   const [exist5, setExist5] = useState(false);
   const [exist6, setExist6] = useState(false);
+  const [loading, setLoading] = useState(0);
+  const cost = props.cost;
+  const id = props.id;
 
   useEffect(() => {
     if (props.structure[1].length != 0) {
@@ -18,8 +24,6 @@ const X4matrix = (props) => {
         setExist1(true);
         setExist2(true);
       }
-      console.log(props.id);
-      console.log(props.structure);
     }
     if (props.structure[2].length != 0) {
       if (props.structure[1].length === 1) {
@@ -37,10 +41,29 @@ const X4matrix = (props) => {
         setExist5(true);
         setExist6(true);
       }
-      console.log(props.id);
-      console.log(props.structure);
     }
   });
+
+  const buyLevel = async () => {
+    try {
+      await loadWeb3();
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+      const contract = new web3.eth.Contract(ABI, ADDRESS);
+
+      await contract.methods
+        .buyNewLevel(2, id)
+        .send({
+          value: cost,
+          from: props.account,
+        })
+        .then(function (receipt) {
+          window.alert("Succes!");
+          setLoading(1);
+        });
+    } catch (err) {
+      window.alert("Something went wrong.. Check: " + err);
+    }
+  };
 
   if (props.bought) {
     return (
@@ -143,7 +166,14 @@ const X4matrix = (props) => {
         <div className="holder">
           <div className="matrix-head">
             <div className="level">{props.id}</div>
-            <div className="id">{props.cost}</div>
+            <button
+              className="buy-level"
+              onClick={async () => {
+                await buyLevel();
+              }}
+            >
+              Buy for {props.cost}
+            </button>
           </div>
           <FirstLine exist={props.bought} />
           <div className="squares">
@@ -153,12 +183,18 @@ const X4matrix = (props) => {
           <SecondLine exist={props.bought} />
         </div>
         <style jsx>{`
+          .buy-level {
+            border: none;
+            background: none;
+            color: white;
+            font-size: 1em;
+          }
           .holder {
             width: auto;
             width: 200px;
           }
           .matrix-head {
-            background: grey;
+            background: rgba(16, 1, 62, 1);
             display: grid;
             grid-template-columns: 50px 150px;
             border-radius: 20px;
