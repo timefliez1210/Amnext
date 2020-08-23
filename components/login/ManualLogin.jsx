@@ -20,7 +20,6 @@ class ManualLogin extends Component {
       this.setState({ isExist: isExists });
     } catch (e) {
       window.alert("Trouble Connecting please try again!" + e);
-      return;
     }
   }
 

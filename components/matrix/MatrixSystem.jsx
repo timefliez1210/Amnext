@@ -7,9 +7,13 @@ import { loadWeb3 } from "../../utils/utility";
 
 class MatrixSystem extends Component {
   async UNSAFE_componentWillMount() {
-    this.setState({ account: this.props.account });
-    await loadWeb3();
-    await this.loadBlockchainData();
+    try {
+      this.setState({ account: this.props.account });
+      await loadWeb3();
+      await this.loadBlockchainData();
+    } catch (err) {
+      window.alert("Something went wrong.. Check: " + err);
+    }
   }
 
   async loadBlockchainData() {
@@ -18,10 +22,10 @@ class MatrixSystem extends Component {
       const contract = new web3.eth.Contract(ABI, ADDRESS);
       this.setState({ contract });
 
-      // Matrix Calls
       const costs = await contract.methods.registrationCost().call();
       const _costs = web3.utils.fromWei(costs, "ether");
       this.setState({ cost: _costs });
+      // Matrix Calls for the X3
       const x3 = [];
       for (let i = 1; i < 13; i++) {
         const res = await contract.methods
@@ -32,11 +36,11 @@ class MatrixSystem extends Component {
           userX3: res,
         });
       }
-      const elements = [];
+      const elementsX3 = [];
       for (let i = 0; i < 12; i++) {
         let j = i + 1;
         const downlines = x3[i].userX3[1].length;
-        elements.push({
+        elementsX3.push({
           id: j,
           number: downlines,
           key: j,
@@ -53,13 +57,32 @@ class MatrixSystem extends Component {
           userX3Exist: res,
         });
       }
-      const x3Payload = this.x3Infos(x3Exist, elements);
+      const x3Payload = this.x3Infos(x3Exist, elementsX3);
       this.setState({ x3Payload });
+
+      // Matrix Calls for the X4
+      const x4Exist = [];
+      for (let i = 1; i < 13; i++) {
+        const res = await contract.methods
+          .usersActiveX6Levels(this.state.account, i)
+          .call();
+        x4Exist.push({
+          id: i,
+          userX4Exist: res,
+        });
+      }
+      console.log(x4Exist);
+      console.log(this.state.account);
+      const res = await contract.methods
+        .usersX6Matrix(this.state.account, 1)
+        .call();
+      console.log(res);
     } catch (err) {
-      window.alert(err);
+      window.alert("Something went wrong.. Check: " + err);
     }
   }
 
+  // Merging X3 quereries into 1 Payload
   x3Infos(arr1, arr2) {
     return arr1.map((item, i) => {
       if (item.id === arr2[i].id) {

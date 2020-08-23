@@ -1,3 +1,6 @@
+import FirstLine from "./x4structure/FirstLine";
+import SecondLine from "./x4structure/SecondLine";
+
 const X4matrix = (props) => {
   return (
     <>
@@ -6,16 +9,12 @@ const X4matrix = (props) => {
           <div className="level">{props.id}</div>
           <div className="id">{props.cost}</div>
         </div>
-        <div className="items">
-          <div className="lines"></div>
-          <div className="lines"></div>
-          <div className="lines"></div>
+        <FirstLine />
+        <div className="squares">
+          <div className="struc"></div>
+          <div className="struc"></div>
         </div>
-        <div className="downlines">
-          <div className="circle"></div>
-          <div className="circle"></div>
-          <div className="circle"></div>
-        </div>
+        <SecondLine />
       </div>
       <style jsx>{`
         .holder {
@@ -45,28 +44,15 @@ const X4matrix = (props) => {
         .id {
           padding: 20px 20px;
         }
-        .items {
+        .squares {
           display: grid;
-          grid-template-columns: 30px 30px 30px;
-          grid-gap: 43px;
+          grid-template-columns: 100px 100px;
         }
-        .lines {
-          height: 25px;
-          width: 2px;
+        .struc {
+          height: 2px;
+          width: 50%;
           background: lightblue;
           margin: auto auto;
-        }
-        .downlines {
-          display: grid;
-          grid-template-columns: 30px 30px 30px;
-          grid-gap: 43px;
-        }
-        .circle {
-          height: 30px;
-          width: 30px;
-          border-radius: 50%;
-          border: 1.5px solid #1ea6ff;
-          background: #1ea6ff;
         }
       `}</style>
     </>
@@ -74,5 +60,3 @@ const X4matrix = (props) => {
 };
 
 export default X4matrix;
-
-// #fd8576
