@@ -69,14 +69,23 @@ class MatrixSystem extends Component {
         x4Exist.push({
           id: i,
           userX4Exist: res,
+          key: i,
+          cost: (this.state.cost / 2) * i,
         });
       }
-      console.log(x4Exist);
-      console.log(this.state.account);
-      const res = await contract.methods
-        .usersX6Matrix(this.state.account, 1)
-        .call();
-      console.log(res);
+      const x6 = [];
+      for (let i = 1; i < 13; i++) {
+        const res = await contract.methods
+          .usersX6Matrix(this.state.account, i)
+          .call();
+        x6.push({
+          id: i,
+          userX6: res,
+        });
+      }
+
+      const x6Payload = this.x3Infos(x4Exist, x6);
+      this.setState({ x6Payload });
     } catch (err) {
       window.alert("Something went wrong.. Check: " + err);
     }
@@ -103,7 +112,7 @@ class MatrixSystem extends Component {
     return (
       <>
         <X3MatrixHolder struc={this.state.x3Payload} />
-        <X4MatrixHolder cost={this.state.cost} />
+        <X4MatrixHolder struc={this.state.x6Payload} />
       </>
     );
   }

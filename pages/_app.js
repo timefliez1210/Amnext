@@ -3,7 +3,7 @@ import { AccountProvider } from "../components/AccountContext";
 
 function MyApp({ Component, pageProps }) {
   const account = {
-    address: "0xf2aA26723ed7b099845afE69FA4929A46BC00245",
+    address: "",
   };
   return (
     <AccountProvider value={account}>

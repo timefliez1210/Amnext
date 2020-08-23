@@ -9,10 +9,10 @@ const SecondLine = (props) => {
         <div className="lines"></div>
       </div>
       <div className="downlines4">
-        <CircleBlue />
-        <CircleBlue />
-        <CircleBlue />
-        <CircleBlue />
+        <CircleBlue exist={props.exist3} />
+        <CircleBlue exist={props.exist4} />
+        <CircleBlue exist={props.exist5} />
+        <CircleBlue exist={props.exist6} />
       </div>
       <style jsx>{`
         .lines {

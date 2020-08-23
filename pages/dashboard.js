@@ -87,10 +87,13 @@ class Dashboard extends Component {
       loading: true,
       totalUsers: "",
       parnterCount: "",
+      page: "main",
     };
   }
 
   render() {
+    const page = this.state.page;
+    const account = this.state.account;
     if (this.state.loading === true) {
       return <Spinner />;
     } else {
@@ -111,7 +114,11 @@ class Dashboard extends Component {
                   />
                 </div>
                 <div className="big-box">
-                  <MatrixSystem account={this.state.account} />
+                  {page === "main" ? (
+                    <MatrixSystem account={account} />
+                  ) : (
+                    <h1>test</h1>
+                  )}
                 </div>
               </div>
 

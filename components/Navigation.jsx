@@ -5,12 +5,12 @@ const Navigation = () => {
     <nav>
       <ul>
         <li>
-          <Link href="">
+          <Link href="/main">
             <a title="">Main</a>
           </Link>
         </li>
         <li>
-          <Link href="">
+          <Link href="/second">
             <a title="">Office</a>
           </Link>
         </li>

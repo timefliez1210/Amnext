@@ -11,7 +11,7 @@ const Spinner = () => {
       <style jsx>{`
         .holder {
           background: none;
-          padding-top: 20vh;
+          padding-top: 20%;
         }
         .heart-holder {
           color: white;

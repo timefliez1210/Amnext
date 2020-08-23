@@ -7,8 +7,8 @@ const FirstLine = (props) => {
         <div className="lines"></div>
       </div>
       <div className="downlines">
-        <CircleBlue exist={true} />
-        <CircleBlue />
+        <CircleBlue exist={props.exist1} />
+        <CircleBlue exist={props.exist2} />
       </div>
       <div className="items">
         <div className="lines"></div>
