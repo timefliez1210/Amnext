@@ -7,12 +7,11 @@ import Spinner from "../components/Spinner";
 import Navigation from "../components/Navigation";
 import InfoHeader from "../components/InfoHeader";
 import Sidebar from "../components/sidebar/Sidebar";
-import MatrixSystem from "../components/matrix/MatrixSystem";
 
 // Context API
 import AccountContext from "../components/AccountContext";
 
-class Dashboard extends Component {
+class Statistics extends Component {
   static contextType = AccountContext;
 
   async UNSAFE_componentWillMount() {
@@ -87,7 +86,6 @@ class Dashboard extends Component {
       loading: true,
       totalUsers: "",
       parnterCount: "",
-      page: "main",
     };
   }
 
@@ -112,7 +110,7 @@ class Dashboard extends Component {
                   />
                 </div>
                 <div className="big-box">
-                  <MatrixSystem account={this.state.account} />
+                  <h1>Hallo vom statistic</h1>
                 </div>
               </div>
 
@@ -146,5 +144,4 @@ class Dashboard extends Component {
     }
   }
 }
-
-export default Dashboard;
+export default Statistics;

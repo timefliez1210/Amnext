@@ -29,10 +29,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/dashboard.js"
     ],
-    "/ref/[id]": [
+    "/statistics": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/chunks/pages/ref/[id].js"
+      "static/chunks/pages/statistics.js"
     ]
   },
   "ampFirstPages": []

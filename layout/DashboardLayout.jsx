@@ -111,8 +111,7 @@ class DashboardLayout extends Component {
                   />
                 </div>
                 <div className="big-box">
-                  {/* {children} */}
-                  {/* <MatrixSystem account={this.state.account} /> */}
+                  <Component />
                 </div>
               </div>
 

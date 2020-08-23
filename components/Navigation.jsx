@@ -5,32 +5,32 @@ const Navigation = () => {
     <nav>
       <ul>
         <li>
-          <Link href="/main">
+          <Link href="/dashboard">
             <a title="">Main</a>
           </Link>
         </li>
         <li>
-          <Link href="/second">
+          <Link href="/office">
             <a title="">Office</a>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="">
             <a title="">Partners</a>
           </Link>
-        </li>
+        </li> */}
         <li>
-          <Link href="">
+          <Link href="/statistics">
             <a title="">Statistics</a>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="">
             <a title="">Goal</a>
           </Link>
-        </li>
+        </li> */}
         <li>
-          <Link href="">
+          <Link href="/instructions">
             <a title="">Instructions</a>
           </Link>
         </li>
