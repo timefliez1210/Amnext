@@ -6,17 +6,17 @@ import Web3 from "web3";
 const X3matrix = (props) => {
   const cost = props.cost;
   const id = props.id;
-  const buyLevel = async () => {
+  const buyLevel = async (_id, _level, _cost, _account) => {
     try {
       await loadWeb3();
       const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
       const contract = new web3.eth.Contract(ABI, ADDRESS);
 
       await contract.methods
-        .buyNewLevel(1, id)
+        .buyNewLevel(_id, _level)
         .send({
-          value: cost,
-          from: props.account,
+          value: _cost,
+          from: _account,
         })
         .then(function (receipt) {
           window.alert("Succes!");
@@ -317,7 +317,7 @@ const X3matrix = (props) => {
             <button
               className="buy-level"
               onClick={async () => {
-                await buyLevel();
+                await buyLevel(1, id, cost, props.account);
               }}
             >
               Buy for {props.cost}

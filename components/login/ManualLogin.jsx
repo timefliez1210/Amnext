@@ -62,8 +62,7 @@ class ManualLogin extends Component {
           <input
             type="text"
             onChange={(event) => {
-              const address = this.input.value.toString();
-              this.setState({
+              const address = this.setState({
                 account: address,
               });
             }}
