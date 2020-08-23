@@ -24,20 +24,8 @@ const X3matrix = (props) => {
     } catch (err) {
       window.alert("Something went wrong.. Check: " + err);
     }
-
-    // type: "uint8", name: "matrix", internalType: "uint8"
-    // await this.state.contract.methods
-    //     .registrationExt(_refererAddress)
-    //     .send({
-    //       value: this.state.cost,
-    //       from: this.state.account,
-    //     })
-    //     .then(function (receipt) {
-    //       Router.push("/dashboard");
-    //       this.setState({ loading: false });
-    //     });
   };
-  console.log(props.account);
+
   if (props.bought) {
     if (props.active === 0) {
       return (
