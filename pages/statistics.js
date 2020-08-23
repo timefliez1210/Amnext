@@ -110,11 +110,60 @@ class Statistics extends Component {
                   />
                 </div>
                 <div className="big-box">
-                  <h1>Hallo vom statistic</h1>
+                  <h1>Statistic</h1>
+                  <p>Search by Hash</p>
+                  <form>
+                    <input placeholder="Search.." />
+                    <button>Submit</button>
+                  </form>
+                  <h2>The last Transactions</h2>
+                  <div className="header">
+                    <p>Hash</p>
+                    <p>ID</p>
+                    <p>Type</p>
+                    <p>ETH</p>
+                    <p>Platform</p>
+                    <p>Program</p>
+                    <p>Date</p>
+                  </div>
                 </div>
               </div>
 
               <style jsx>{`
+                .header {
+                  display: grid;
+                  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+                  background: rgba(28, 22, 85, 1);
+                  border-radius: 20px;
+                  padding: 10px 20px;
+                }
+                form {
+                  width: 100%;
+                }
+                input {
+                  border: none;
+                  outline: none;
+                  background: rgba(28, 22, 85, 1);
+                  width: 70vw;
+                  max-width: 400px;
+                  border-radius: 20px;
+                  line-height: 3em;
+                  padding: 0 20px;
+                  color: white;
+                  font-style: bold;
+                  font-size: 1.2em;
+                }
+                button {
+                  border: none;
+                  outline: none;
+                  background: rgba(28, 22, 85, 1);
+                  color: white;
+                  font-style: bold;
+                  font-size: 1.2em;
+                  padding: 18px 30px;
+                  margin-left: 20px;
+                  border-radius: 20px;
+                }
                 .dashboard {
                   background: rgba(16, 1, 62, 1);
                   width: 100vw;

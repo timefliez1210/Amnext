@@ -110,7 +110,7 @@ class Instructions extends Component {
                   />
                 </div>
                 <div className="big-box">
-                  <h1>Hallo vom intro</h1>
+                  <img src="/assets/img/instructions.png" width="100%" />
                 </div>
               </div>
 

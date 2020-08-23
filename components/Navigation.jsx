@@ -10,8 +10,8 @@ const Navigation = () => {
           </Link>
         </li>
         <li>
-          <Link href="/office">
-            <a title="">Office</a>
+          <Link href="/partners">
+            <a title="">Partners</a>
           </Link>
         </li>
         {/* <li>
