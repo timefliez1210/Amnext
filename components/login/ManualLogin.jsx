@@ -26,15 +26,18 @@ class ManualLogin extends Component {
       }
     } catch (e) {
       window.alert("Trouble Connecting please try again!" + e);
+      this.setState({ loading: false });
     }
   }
 
   async login() {
+    this.setState({ loading: true });
     try {
       await loadWeb3();
       await this.loadBlockchainData();
     } catch (err) {
       window.alert("Invalid ETH ADDRESS, Checksum doesnt match");
+      this.setState({ loading: false });
     }
   }
 
@@ -45,6 +48,7 @@ class ManualLogin extends Component {
       window.alert(
         "The user you are looking for doesn't exist. Try another one!"
       );
+      this.setState({ loading: false });
     }
   }
 
@@ -53,10 +57,12 @@ class ManualLogin extends Component {
     this.state = {
       account: "",
       isExist: false,
+      loading: false,
     };
   }
   render() {
     const { account, setAccount } = this.context;
+    const isLoading = this.state.loading;
     return (
       <>
         <form
@@ -83,9 +89,16 @@ class ManualLogin extends Component {
             }}
             placeholder="Wallet Address or ID..."
           />
-          <button className="manual-btn">
-            <b>Viewing</b>
-          </button>
+
+          {!isLoading ? (
+            <button className="manual-btn">
+              <b>View</b>
+            </button>
+          ) : (
+            <div className="manual-load">
+              <b>Loading</b>
+            </div>
+          )}
         </form>
         <style jsx>{`
           .manual-btn {
@@ -98,6 +111,23 @@ class ManualLogin extends Component {
             box-shadow: none;
             outline: none;
             border: none;
+          }
+          .manual-load {
+            background: rgb(55, 214, 255);
+            background: linear-gradient(
+              223deg,
+              rgba(55, 214, 255, 1) 0%,
+              rgba(16, 83, 245, 1) 46%
+            );
+            box-shadow: none;
+            outline: none;
+            border: none;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2em;
           }
           input {
             width: 100%;

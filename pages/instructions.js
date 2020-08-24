@@ -14,7 +14,7 @@ import AccountContext from "../components/AccountContext";
 class Instructions extends Component {
   static contextType = AccountContext;
 
-  async UNSAFE_componentWillMount() {
+  async componentDidMount() {
     this.setState({ account: this.context.account });
     await loadWeb3();
     await this.loadBlockchainData();
