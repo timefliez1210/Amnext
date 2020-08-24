@@ -6,11 +6,13 @@ import { ABI, ADDRESS } from "../../utils/globals";
 import { loadWeb3 } from "../../utils/utility";
 
 class MatrixSystem extends Component {
-  async UNSAFE_componentWillMount() {
+  async componentDidMount() {
     try {
       this.setState({ account: this.props.account });
       await loadWeb3();
       await this.loadBlockchainData();
+      this.loadX3();
+      this.loadX4();
     } catch (err) {
       window.alert("Something went wrong.. Check: " + err);
     }
@@ -21,14 +23,28 @@ class MatrixSystem extends Component {
       const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
       const contract = new web3.eth.Contract(ABI, ADDRESS);
       this.setState({ contract });
-
       const costs = await contract.methods.registrationCost().call();
       this.setState({ cost: costs });
+    } catch (err) {
+      window.alert("Something went wrong.. Check: " + err);
+    }
+  }
 
-      // Matrix Calls for the X3
+  // Merging Matrix quereries into 1 Payload
+  x3Infos(arr1, arr2) {
+    return arr1.map((item, i) => {
+      if (item.id === arr2[i].id) {
+        return Object.assign({}, item, arr2[i]);
+      }
+    });
+  }
+
+  // Matrix Functions
+  async loadX3() {
+    try {
       const x3 = [];
       for (let i = 1; i < 13; i++) {
-        const res = await contract.methods
+        const res = await this.state.contract.methods
           .usersX3Matrix(this.state.account, i)
           .call();
         x3.push({
@@ -52,7 +68,7 @@ class MatrixSystem extends Component {
       }
       const x3Exist = [];
       for (let i = 1; i < 13; i++) {
-        const res = await contract.methods
+        const res = await this.state.contract.methods
           .usersActiveX3Levels(this.state.account, i)
           .call();
         x3Exist.push({
@@ -62,12 +78,17 @@ class MatrixSystem extends Component {
       }
       const x3Payload = this.x3Infos(x3Exist, elementsX3);
       this.setState({ x3Payload });
+    } catch (err) {
+      window.alert("Something went wrong fetching your X3. Please reload");
+    }
+  }
 
-      // Matrix Calls for the X4
+  async loadX4() {
+    try {
       var _x4cost = this.state.cost / 2;
       const x4Exist = [];
       for (let i = 1; i < 13; i++) {
-        const res = await contract.methods
+        const res = await this.state.contract.methods
           .usersActiveX6Levels(this.state.account, i)
           .call();
         x4Exist.push({
@@ -80,7 +101,7 @@ class MatrixSystem extends Component {
       }
       const x6 = [];
       for (let i = 1; i < 13; i++) {
-        const res = await contract.methods
+        const res = await this.state.contract.methods
           .usersX6Matrix(this.state.account, i)
           .call();
         x6.push({
@@ -92,17 +113,8 @@ class MatrixSystem extends Component {
       const x6Payload = this.x3Infos(x4Exist, x6);
       this.setState({ x6Payload });
     } catch (err) {
-      window.alert("Something went wrong.. Check: " + err);
+      window.alert("Something went wrong fetching your X4. Please Reload.");
     }
-  }
-
-  // Merging X3 quereries into 1 Payload
-  x3Infos(arr1, arr2) {
-    return arr1.map((item, i) => {
-      if (item.id === arr2[i].id) {
-        return Object.assign({}, item, arr2[i]);
-      }
-    });
   }
 
   constructor(props) {
