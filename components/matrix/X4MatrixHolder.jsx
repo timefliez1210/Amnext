@@ -8,7 +8,7 @@ const X4MatrixHolder = (props) => {
     if (props.struc != undefined) {
       setReload(1);
     }
-  }, reload);
+  });
 
   if (props.struc === undefined) {
     return (

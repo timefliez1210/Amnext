@@ -15,7 +15,7 @@ const UserContent = (props) => {
       <div className="content-user">
         <h4>{props.title}</h4>
         <form>
-          <input ref={inputRef} value={props.placeholder} />
+          <input ref={inputRef} value={props.placeholder} readOnly />
         </form>
         <br />
         {

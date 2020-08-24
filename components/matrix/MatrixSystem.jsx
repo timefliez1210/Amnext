@@ -23,8 +23,8 @@ class MatrixSystem extends Component {
       this.setState({ contract });
 
       const costs = await contract.methods.registrationCost().call();
-
       this.setState({ cost: costs });
+
       // Matrix Calls for the X3
       const x3 = [];
       for (let i = 1; i < 13; i++) {

@@ -54,6 +54,7 @@ class ManualLogin extends Component {
           className="manual"
           onSubmit={async (event) => {
             event.preventDefault();
+
             const newUser = this.state.account;
             setAccount(newUser);
             this.login();
@@ -62,9 +63,11 @@ class ManualLogin extends Component {
           <input
             type="text"
             onChange={(event) => {
-              const address = this.setState({
+              const address = this.input.value.toString();
+              this.setState({
                 account: address,
               });
+              console.log(this.state.account);
             }}
             ref={(input) => {
               this.input = input;

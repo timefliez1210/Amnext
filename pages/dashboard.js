@@ -15,11 +15,15 @@ import AccountContext from "../components/AccountContext";
 class Dashboard extends Component {
   static contextType = AccountContext;
 
-  async UNSAFE_componentWillMount() {
-    this.setState({ account: this.context.account });
-    await loadWeb3();
-    await this.loadBlockchainData();
-    this.setState({ loading: false });
+  async componentDidMount() {
+    try {
+      this.setState({ account: this.context.account });
+      await loadWeb3();
+      await this.loadBlockchainData();
+      this.setState({ loading: false });
+    } catch (err) {
+      console.log("Something went wrong.. Check: " + err);
+    }
   }
 
   async loadBlockchainData() {
@@ -50,31 +54,38 @@ class Dashboard extends Component {
 
       // Error Catch -> Fetch the new Data directly from web3 provider after reload
     } catch (err) {
-      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-      const accounts = await web3.eth.getAccounts();
-      this.setState({ account: accounts[0] });
-      const contract = new web3.eth.Contract(ABI, ADDRESS);
-      this.setState({ contract });
-      const address = ADDRESS;
-      this.setState({ address });
-      const isExists = await contract.methods
-        .isUserExists(this.state.account)
-        .call();
-      this.setState({ isExist: isExists });
-      // Bundled Promises
-      const userId = await this.state.contract.methods
-        .users(this.state.account)
-        .call();
-      this.setState({
-        userIds: userId.id,
-        parnterCount: userId.partnersCount,
-      });
-      const userCount = await this.state.contract.methods.lastUserId().call();
-      this.setState({ totalUsers: userCount });
-      const balance = await this.state.contract.methods
-        .balances(this.state.account)
-        .call();
-      this.setState({ balance });
+      try {
+        const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+        const accounts = await web3.eth.getAccounts();
+        this.setState({ account: accounts[0] });
+        const contract = new web3.eth.Contract(ABI, ADDRESS);
+        this.setState({ contract });
+        const address = ADDRESS;
+        this.setState({ address });
+        const isExists = await contract.methods
+          .isUserExists(this.state.account)
+          .call();
+        this.setState({ isExist: isExists });
+        // Bundled Promises
+        const userId = await this.state.contract.methods
+          .users(this.state.account)
+          .call();
+        this.setState({
+          userIds: userId.id,
+          parnterCount: userId.partnersCount,
+        });
+        const userCount = await this.state.contract.methods.lastUserId().call();
+        this.setState({ totalUsers: userCount });
+        const balance = await this.state.contract.methods
+          .balances(this.state.account)
+          .call();
+        this.setState({ balance });
+      } catch (err) {
+        window.alert(
+          "We really cant connect you, are you connected to the MATIC Chain?  " +
+            err
+        );
+      }
     }
   }
 
