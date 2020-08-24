@@ -11,13 +11,19 @@ class ManualLogin extends Component {
   async loadBlockchainData() {
     try {
       const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-      this.setState({ account: this.context.account });
       const contract = new web3.eth.Contract(ABI, ADDRESS);
       this.setState({ contract });
-      const isExists = await contract.methods
-        .isUserExists(this.state.account)
-        .call();
-      this.setState({ isExist: isExists });
+      if (this.state.account[1] === "x") {
+        const isExists = await contract.methods
+          .isUserExists(this.state.account)
+          .call();
+        this.setState({ isExist: isExists });
+      } else {
+        const id = this.state.account;
+        const _account = await contract.methods.idToAddress(id).call();
+        const isExists = await contract.methods.isUserExists(_account).call();
+        this.setState({ isExist: isExists, account: _account });
+      }
     } catch (e) {
       window.alert("Trouble Connecting please try again!" + e);
     }
@@ -27,15 +33,18 @@ class ManualLogin extends Component {
     try {
       await loadWeb3();
       await this.loadBlockchainData();
-      if (this.state.isExist) {
-        Router.push("/dashboard");
-      } else {
-        window.alert(
-          "The user you are looking for doesn't exist. Try another one!"
-        );
-      }
     } catch (err) {
       window.alert("Invalid ETH ADDRESS, Checksum doesnt match");
+    }
+  }
+
+  redirect() {
+    if (this.state.isExist) {
+      Router.push("/dashboard");
+    } else {
+      window.alert(
+        "The user you are looking for doesn't exist. Try another one!"
+      );
     }
   }
 
@@ -55,9 +64,10 @@ class ManualLogin extends Component {
           onSubmit={async (event) => {
             event.preventDefault();
 
+            await this.login();
             const newUser = this.state.account;
             setAccount(newUser);
-            this.login();
+            this.redirect();
           }}
         >
           <input
@@ -67,7 +77,6 @@ class ManualLogin extends Component {
               this.setState({
                 account: address,
               });
-              console.log(this.state.account);
             }}
             ref={(input) => {
               this.input = input;
