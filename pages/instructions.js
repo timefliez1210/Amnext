@@ -9,7 +9,7 @@ import InfoHeader from "../components/InfoHeader";
 import Sidebar from "../components/sidebar/Sidebar";
 
 // Context API
-import AccountContext from "../components/AccountContext";
+import AccountContext from "../Layout/AccountContext";
 
 class Instructions extends Component {
   static contextType = AccountContext;

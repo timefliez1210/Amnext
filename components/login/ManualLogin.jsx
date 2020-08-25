@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AccountContext from "../AccountContext";
+import AccountContext from "../../Layout/AccountContext";
 import { ABI, ADDRESS } from "../../utils/globals";
 import { loadWeb3 } from "../../utils/utility";
 import Web3 from "web3";

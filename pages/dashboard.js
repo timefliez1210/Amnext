@@ -10,7 +10,7 @@ import Sidebar from "../components/sidebar/Sidebar";
 import MatrixSystem from "../components/matrix/MatrixSystem";
 
 // Context API
-import AccountContext from "../components/AccountContext";
+import AccountContext from "../Layout/AccountContext";
 
 class Dashboard extends Component {
   static contextType = AccountContext;
@@ -98,7 +98,6 @@ class Dashboard extends Component {
       loading: true,
       totalUsers: "",
       parnterCount: "",
-      page: "main",
     };
   }
 

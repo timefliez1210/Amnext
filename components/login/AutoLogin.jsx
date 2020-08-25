@@ -3,7 +3,7 @@ import Web3 from "web3";
 import { ABI, ADDRESS, OWNER } from "../../utils/globals";
 import { loadWeb3 } from "../../utils/utility";
 import Router from "next/router";
-import AccountContext from "../AccountContext";
+import AccountContext from "../../Layout/AccountContext";
 
 class AutoLogin extends Component {
   static contextType = AccountContext;

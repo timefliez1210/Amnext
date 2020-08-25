@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { AccountProvider } from "../components/AccountContext";
+import { AccountProvider } from "../Layout/AccountContext";
 
 function MyApp({ Component, pageProps }) {
   const account = {
