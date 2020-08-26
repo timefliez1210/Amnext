@@ -94,13 +94,7 @@ const Navigation = () => {
           </li>
         </ul>
         <style jsx>{`
-       .holder {
-        background: rgba(28, 22, 85, 1);
-        position: fixed;
-        height: 100px;
-        width: 100vw;
-        top: 0px;
-        }
+
 
       .logo-big {
           width 100px;

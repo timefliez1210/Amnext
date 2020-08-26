@@ -168,7 +168,7 @@ class Statistics extends Component {
                   background: rgba(16, 1, 62, 1);
                   width: 100vw;
                   max-width: 1420px;
-                  margin: auto auto;
+                  margin: 3.5vh auto;
                   padding: 5px;
                 }
                 .pagination {

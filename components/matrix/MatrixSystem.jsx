@@ -52,20 +52,24 @@ class MatrixSystem extends Component {
           userX3: res,
         });
       }
+
       const elementsX3 = [];
       var _cost = this.state.cost / 2;
       for (let i = 0; i < 12; i++) {
         let j = i + 1;
 
         const downlines = x3[i].userX3[1].length;
+        const idArray = x3[i].userX3[1];
         elementsX3.push({
           id: j,
           number: downlines,
+          downlineIds: idArray,
           key: j,
           cost: _cost,
         });
         _cost = _cost * 2;
       }
+
       const x3Exist = [];
       for (let i = 1; i < 13; i++) {
         const res = await this.state.contract.methods
@@ -123,21 +127,49 @@ class MatrixSystem extends Component {
       account: "",
       parnterCount: "",
       cost: "",
+      component: "main",
     };
   }
   render() {
-    return (
-      <>
-        <X3MatrixHolder
-          struc={this.state.x3Payload}
-          account={this.state.account}
-        />
-        <X4MatrixHolder
-          struc={this.state.x6Payload}
-          account={this.state.account}
-        />
-      </>
-    );
+    if (this.state.component === "x3") {
+      return (
+        <>
+          <h1>läuft</h1>
+          <button
+            onClick={() => {
+              this.setState({ component: "x4" });
+            }}
+          >
+            x4
+          </button>
+        </>
+      );
+    } else if (this.state.component === "x4") {
+      return (
+        <>
+          <button
+            onClick={() => {
+              this.setState({ component: "main" });
+            }}
+          >
+            x4
+          </button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <X3MatrixHolder
+            struc={this.state.x3Payload}
+            account={this.state.account}
+          />
+          <X4MatrixHolder
+            struc={this.state.x6Payload}
+            account={this.state.account}
+          />
+        </>
+      );
+    }
   }
 }
 

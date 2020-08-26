@@ -6,7 +6,7 @@ import Web3 from "web3";
 const X3matrix = (props) => {
   const cost = props.cost;
   const id = props.id;
-  console.log(props);
+
   const buyLevel = async (_id, _level, _cost, _account) => {
     try {
       await loadWeb3();

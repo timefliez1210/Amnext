@@ -15,7 +15,6 @@ const X4matrix = (props) => {
   const [loading, setLoading] = useState(0);
   const cost = props.cost;
   const id = props.id;
-  console.log(props);
 
   useEffect(() => {
     if (props.structure[1].length != 0) {
