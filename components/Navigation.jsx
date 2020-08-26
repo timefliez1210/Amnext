@@ -5,59 +5,74 @@ import { RiMenu4Line } from "react-icons/ri";
 const Navigation = () => {
   const [navOpen, setNavOpen] = useState(false);
   return (
-    <nav>
-      <figure
-        onClick={() => {
-          setNavOpen(!navOpen);
-        }}
-      >
-        <RiMenu4Line fontSize="40px" />
-      </figure>
-      <ul className={navOpen ? "active" : ""}>
-        <li>
-          <Link href="/dashboard">
-            <a
-              title=""
-              onClick={() => {
-                setNavOpen(!navOpen);
-              }}
-            >
-              Main
+    <div className="holder">
+      <nav>
+        <div className="logo-small">
+          <Link href="/">
+            <a title="Startseite">
+              <img src="/assets/img/logo.png" height="90px" />
             </a>
           </Link>
-        </li>
-        <li>
-          <Link href="/partners">
-            <a
-              title=""
-              onClick={() => {
-                setNavOpen(!navOpen);
-              }}
-            >
-              Partners
-            </a>
-          </Link>
-        </li>
-        {/* <li>
+        </div>
+        <figure
+          onClick={() => {
+            setNavOpen(!navOpen);
+          }}
+        >
+          <RiMenu4Line fontSize="40px" />
+        </figure>
+        <ul className={navOpen ? "active" : ""}>
+          <li>
+            <Link href="/">
+              <a title="Startseite">
+                <img src="/assets/img/logo.png" className="logo-big" />
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard">
+              <a
+                title=""
+                onClick={() => {
+                  setNavOpen(!navOpen);
+                }}
+              >
+                Main
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/partners">
+              <a
+                title=""
+                onClick={() => {
+                  setNavOpen(!navOpen);
+                }}
+              >
+                Partners
+              </a>
+            </Link>
+          </li>
+          {/* <li>
           <Link href="">
             <a title=""onClick={() => {
                     setNavOpen(!navOpen);
                   }}>Partners</a>
           </Link>
         </li> */}
-        <li>
-          <Link href="/statistics">
-            <a
-              title=""
-              onClick={() => {
-                setNavOpen(!navOpen);
-              }}
-            >
-              Statistics
-            </a>
-          </Link>
-        </li>
-        {/* <li>
+          <li>
+            <Link href="/statistics">
+              <a
+                title=""
+                onClick={() => {
+                  setNavOpen(!navOpen);
+                }}
+              >
+                Statistics
+              </a>
+            </Link>
+          </li>
+          {/* <li>
           <Link href="">
             <a title=""
             onClick={() => {
@@ -65,26 +80,27 @@ const Navigation = () => {
                   }}>Goal</a>
           </Link>
         </li> */}
-        <li>
-          <Link href="/instructions">
-            <a
-              title=""
-              onClick={() => {
-                setNavOpen(!navOpen);
-              }}
-            >
-              Instructions
-            </a>
-          </Link>
-        </li>
-      </ul>
-      <style jsx>{`
+          <li>
+            <Link href="/instructions">
+              <a
+                title=""
+                onClick={() => {
+                  setNavOpen(!navOpen);
+                }}
+              >
+                Instructions
+              </a>
+            </Link>
+          </li>
+        </ul>
+        <style jsx>{`
        .holder {
-        background: rgba(16, 1, 62, 1);
+        background: rgba(28, 22, 85, 1);
         position: fixed;
         height: 100px;
+        width: 100vw;
         top: 0px;
-    }
+        }
 
       .logo-big {
           width 100px;
@@ -98,22 +114,21 @@ const Navigation = () => {
           left: 40%;
       }
       nav {
-        rgba(16, 1, 62, 1);
+        background: rgba(28, 22, 85, 1);
         height: auto;
-        width: 100%;
+        width: 100vw;
         position: fixed;
         top: 0px;
         padding: 5px 0;
         z-index: 999;
         font-size: 20px;
-        color: grey;
-
       }
 
 
 
       nav ul {
-        background: rgba(16, 1, 62, 1);
+        background: rgba(28, 22, 85, 1);
+        width: 100vw;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -190,8 +205,9 @@ const Navigation = () => {
           }
 
       nav {
-          background: rgba(16, 1, 62, 1);
-          height: auto;
+          background: rgba(28, 22, 85, 1);
+          height: 100px;
+          
       }
       nav figure {
         display: block;
@@ -246,7 +262,8 @@ const Navigation = () => {
         }
       }
       `}</style>
-    </nav>
+      </nav>
+    </div>
   );
 };
 
