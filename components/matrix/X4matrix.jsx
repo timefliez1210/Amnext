@@ -89,6 +89,7 @@ const X4matrix = (props) => {
           .holder {
             width: auto;
             width: 200px;
+            margin: auto auto;
           }
           .matrix-head {
             background: rgb(31, 169, 255);
@@ -192,6 +193,7 @@ const X4matrix = (props) => {
           .holder {
             width: auto;
             width: 200px;
+            margin: auto auto;
           }
           .matrix-head {
             background: rgba(16, 1, 62, 1);

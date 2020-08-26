@@ -24,15 +24,10 @@ const Login = () => {
         <style jsx>{`
           .header {
             width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
             background: rgba(16, 1, 62, 1);
             display: flex;
-          }
-          @media only screen and (max-width: 1000px) {
-            .header {
-              height: auto;
-            }
           }
           .hero-image {
             width: 70vw;
@@ -99,6 +94,15 @@ const Login = () => {
             color: white;
             font-size: 1.2em;
           }
+          @media only screen and (max-width: 1000px) {
+            .header {
+              height: auto;
+            }
+            .form-part {
+              height: auto;
+            }
+          }
+
           @media only screen and (max-width: 1000px) {
             .hero-image {
               display: none;
