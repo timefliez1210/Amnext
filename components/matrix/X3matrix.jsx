@@ -1,11 +1,32 @@
-import Circle from "./Circle";
 import { loadWeb3 } from "../../utils/utility";
 import { ABI, ADDRESS } from "../../utils/globals";
 import Web3 from "web3";
+import AccountContext from "../../Layout/AccountContext";
+import React, { useContext, useState, useEffect } from "react";
+import ReferalLine from "./x3structure/ReferalLine";
 
 const X3matrix = (props) => {
+  const [exist1, setExist1] = useState(false);
+  const [exist2, setExist2] = useState(false);
+
+  const [downline1, setDownline1] = useState();
+  const { matrixView, setMatrixView } = useContext(AccountContext);
+  const { detailAccountView, setDetailAccountView } = useContext(
+    AccountContext
+  );
   const cost = props.cost;
   const id = props.id;
+  useEffect(() => {
+    if (props.downlineIds.length != 0) {
+      if (props.downlineIds.length === 1) {
+        setExist1(true);
+        addressToId(props.downlineIds[0]);
+        console.log(downline1);
+      } else if (props.downlineIds.length === 2) {
+        setExist2(true);
+      }
+    }
+  });
 
   const buyLevel = async (_id, _level, _cost, _account) => {
     try {
@@ -27,280 +48,79 @@ const X3matrix = (props) => {
     }
   };
 
+  const addressToId = async (_address) => {
+    await loadWeb3();
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+    const contract = new web3.eth.Contract(ABI, ADDRESS);
+    const res = await contract.methods.users(_address).call();
+    const userId = res[0];
+    setDownline1(userId);
+  };
+
   if (props.bought) {
-    if (props.active === 0) {
-      return (
-        <>
-          <div className="holder">
-            <div className="matrix-head">
-              <div className="level">{props.id}</div>
-              <div className="id">{props.cost}</div>
-            </div>
-            <div className="items">
-              <div className="lines"></div>
-              <div className="lines"></div>
-              <div className="lines"></div>
-            </div>
-            <div className="downlines">
-              <Circle exist={false} />
-              <Circle exist={false} />
-              <Circle exist={false} />
-            </div>
+    return (
+      <>
+        <div className="holder">
+          <div
+            className="matrix-head"
+            onClick={() => {
+              setMatrixView("x3");
+            }}
+          >
+            <div className="level">{props.id}</div>
+            <div className="id">{props.cost}</div>
           </div>
-          <style jsx>{`
-            .holder {
-              width: auto;
-              width: 200px;
-              margin: auto auto;
-            }
-            .matrix-head {
-              background: rgb(31, 169, 255);
-              background: linear-gradient(
-                270deg,
-                rgba(31, 169, 255, 1) 31%,
-                rgba(21, 117, 251, 1) 77%
-              );
-              display: grid;
-              grid-template-columns: 50px 150px;
-              border-radius: 20px;
-              font-style: bold;
-              font-size: 1.2em;
-              height: 70px;
-              overflow: hidden;
-              cursor: pointer;
-            }
-            .level {
-              background: #338eff;
-              padding: 20px 20px;
-              border-radius: 20px;
-            }
-            .id {
-              padding: 20px 20px;
-            }
-            .items {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-            .lines {
-              height: 25px;
-              width: 2px;
-              background: lightblue;
-              margin: auto auto;
-            }
-            .downlines {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-          `}</style>
-        </>
-      );
-    } else if (props.active === 1) {
-      return (
-        <>
-          <div className="holder">
-            <div className="matrix-head">
-              <div className="level">{props.id}</div>
-              <div className="id">{props.cost}</div>
-            </div>
-            <div className="items">
-              <div className="lines"></div>
-              <div className="lines"></div>
-              <div className="lines"></div>
-            </div>
-            <div className="downlines">
-              <Circle exist={true} />
-              <Circle exist={false} />
-              <Circle exist={false} />
-            </div>
-          </div>
-          <style jsx>{`
-            .holder {
-              width: auto;
-              width: 200px;
-              margin: auto auto;
-            }
-            .matrix-head {
-              background: rgb(31, 169, 255);
-              background: linear-gradient(
-                270deg,
-                rgba(31, 169, 255, 1) 31%,
-                rgba(21, 117, 251, 1) 77%
-              );
-              display: grid;
-              grid-template-columns: 50px 150px;
-              border-radius: 20px;
-              font-style: bold;
-              font-size: 1.2em;
-              height: 70px;
-              overflow: hidden;
-              cursor: pointer;
-            }
-            .level {
-              background: #338eff;
-              padding: 20px 20px;
-              border-radius: 20px;
-            }
-            .id {
-              padding: 20px 20px;
-            }
-            .items {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-            .lines {
-              height: 25px;
-              width: 2px;
-              background: lightblue;
-              margin: auto auto;
-            }
-            .downlines {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-          `}</style>
-        </>
-      );
-    } else if (props.active === 2) {
-      return (
-        <>
-          <div className="holder">
-            <div className="matrix-head">
-              <div className="level">{props.id}</div>
-              <div className="id">{props.cost}</div>
-            </div>
-            <div className="items">
-              <div className="lines"></div>
-              <div className="lines"></div>
-              <div className="lines"></div>
-            </div>
-            <div className="downlines">
-              <Circle exist={true} />
-              <Circle exist={true} />
-              <Circle exist={false} />
-            </div>
-          </div>
-          <style jsx>{`
-            .holder {
-              width: auto;
-              width: 200px;
-              margin: auto auto;
-            }
-            .matrix-head {
-              background: rgb(31, 169, 255);
-              background: linear-gradient(
-                270deg,
-                rgba(31, 169, 255, 1) 31%,
-                rgba(21, 117, 251, 1) 77%
-              );
-              display: grid;
-              grid-template-columns: 50px 150px;
-              border-radius: 20px;
-              font-style: bold;
-              font-size: 1.2em;
-              height: 70px;
-              overflow: hidden;
-              cursor: pointer;
-            }
-            .level {
-              background: #338eff;
-              padding: 20px 20px;
-              border-radius: 20px;
-            }
-            .id {
-              padding: 20px 20px;
-            }
-            .items {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-            .lines {
-              height: 25px;
-              width: 2px;
-              background: lightblue;
-              margin: auto auto;
-            }
-            .downlines {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-          `}</style>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <div className="holder">
-            <div className="matrix-head">
-              <div className="level">{props.id}</div>
-              <div className="id">{props.cost}</div>
-            </div>
-            <div className="items">
-              <div className="lines"></div>
-              <div className="lines"></div>
-              <div className="lines"></div>
-            </div>
-            <div className="downlines">
-              <Circle exist={true} />
-              <Circle exist={true} />
-              <Circle exist={true} />
-            </div>
-          </div>
-          <style jsx>{`
-            .holder {
-              width: auto;
-              width: 200px;
-              margin: auto auto;
-            }
-            .matrix-head {
-              background: rgb(31, 169, 255);
-              background: linear-gradient(
-                270deg,
-                rgba(31, 169, 255, 1) 31%,
-                rgba(21, 117, 251, 1) 77%
-              );
-              display: grid;
-              grid-template-columns: 50px 150px;
-              border-radius: 20px;
-              font-style: bold;
-              font-size: 1.2em;
-              height: 70px;
-              overflow: hidden;
-              cursor: pointer;
-            }
-            .level {
-              background: #338eff;
-              padding: 20px 20px;
-              border-radius: 20px;
-            }
-            .id {
-              padding: 20px 20px;
-            }
-            .items {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-            .lines {
-              height: 25px;
-              width: 2px;
-              background: lightblue;
-              margin: auto auto;
-            }
-            .downlines {
-              display: grid;
-              grid-template-columns: 30px 30px 30px;
-              grid-gap: 43px;
-            }
-          `}</style>
-        </>
-      );
-    }
+          <ReferalLine exist1={exist1} exist2={exist2} exist3={false} />
+        </div>
+        <style jsx>{`
+          .holder {
+            width: auto;
+            width: 200px;
+            margin: auto auto;
+          }
+          .matrix-head {
+            background: rgb(31, 169, 255);
+            background: linear-gradient(
+              270deg,
+              rgba(31, 169, 255, 1) 31%,
+              rgba(21, 117, 251, 1) 77%
+            );
+            display: grid;
+            grid-template-columns: 50px 150px;
+            border-radius: 20px;
+            font-style: bold;
+            font-size: 1.2em;
+            height: 70px;
+            overflow: hidden;
+            cursor: pointer;
+          }
+          .level {
+            background: #338eff;
+            padding: 20px 20px;
+            border-radius: 20px;
+          }
+          .id {
+            padding: 20px 20px;
+          }
+          .items {
+            display: grid;
+            grid-template-columns: 30px 30px 30px;
+            grid-gap: 43px;
+          }
+          .lines {
+            height: 25px;
+            width: 2px;
+            background: lightblue;
+            margin: auto auto;
+          }
+          .downlines {
+            display: grid;
+            grid-template-columns: 30px 30px 30px;
+            grid-gap: 43px;
+          }
+        `}</style>
+      </>
+    );
   } else {
     return (
       <>
@@ -316,16 +136,7 @@ const X3matrix = (props) => {
               Buy for {props.cost}
             </button>
           </div>
-          <div className="items">
-            <div className="lines"></div>
-            <div className="lines"></div>
-            <div className="lines"></div>
-          </div>
-          <div className="downlines">
-            <Circle exist={false} />
-            <Circle exist={false} />
-            <Circle exist={false} />
-          </div>
+          <ReferalLine exist1={exist1} exist2={exist2} exist3={false} />
         </div>
         <style jsx>{`
           .buy-level {

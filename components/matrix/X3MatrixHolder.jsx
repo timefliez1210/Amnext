@@ -60,6 +60,7 @@ const X3MatrixHolder = (props) => {
                 active={matrix.number}
                 bought={matrix.userX3Exist}
                 account={props.account}
+                downlineIds={matrix.downlineIds}
               />
             ))}
           </div>

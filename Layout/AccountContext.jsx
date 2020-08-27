@@ -9,6 +9,8 @@ class AccountProvider extends Component {
   // context state
   state = {
     account: "",
+    detailViewAccount: "",
+    matrixView: "",
   };
 
   //Method to update
@@ -16,16 +18,28 @@ class AccountProvider extends Component {
     this.setState((prevState) => ({ account }));
   };
 
+  setDetailViewAccount = (detailViewAccount) => {
+    this.setState((prevState) => ({ detailViewAccount }));
+  };
+
+  setMatrixView = (matrixView) => {
+    this.setState((prevState) => ({ matrixView }));
+  };
+
   render() {
     const { children } = this.props;
-    const { account } = this.state;
-    const { setAccount } = this;
+    const { account, matrixView, detailViewAccount } = this.state;
+    const { setAccount, setMatrixView, setDetailViewAccount } = this;
 
     return (
       <AccountContext.Provider
         value={{
+          detailViewAccount,
+          setDetailViewAccount,
           account,
           setAccount,
+          matrixView,
+          setMatrixView,
         }}
       >
         {children}

@@ -4,8 +4,13 @@ import X4MatrixHolder from "./X4MatrixHolder";
 import Web3 from "web3";
 import { ABI, ADDRESS } from "../../utils/globals";
 import { loadWeb3 } from "../../utils/utility";
+import X3MatrixHolderDetail from "./X3MatrixHolderDetail";
+
+// Context API
+import AccountContext from "../../Layout/AccountContext";
 
 class MatrixSystem extends Component {
+  static contextType = AccountContext;
   async componentDidMount() {
     try {
       this.setState({ account: this.props.account });
@@ -127,21 +132,15 @@ class MatrixSystem extends Component {
       account: "",
       parnterCount: "",
       cost: "",
-      component: "main",
     };
   }
   render() {
-    if (this.state.component === "x3") {
+    const { detailViewAccount, setDetailViewAccount } = this.context;
+    const { matrixView, setMatrixView } = this.context;
+    if (this.context.matrixView === "x3") {
       return (
         <>
-          <h1>läuft</h1>
-          <button
-            onClick={() => {
-              this.setState({ component: "x4" });
-            }}
-          >
-            x4
-          </button>
+          <X3MatrixHolderDetail />
         </>
       );
     } else if (this.state.component === "x4") {
@@ -159,6 +158,13 @@ class MatrixSystem extends Component {
     } else {
       return (
         <>
+          <button
+            onClick={() => {
+              setMatrixView("x3");
+            }}
+          >
+            x4
+          </button>
           <X3MatrixHolder
             struc={this.state.x3Payload}
             account={this.state.account}

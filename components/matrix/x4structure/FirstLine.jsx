@@ -1,4 +1,4 @@
-import CircleBlue from "./CircleBlue";
+import CircleX4 from "./CircleX4";
 const FirstLine = (props) => {
   return (
     <>
@@ -7,8 +7,8 @@ const FirstLine = (props) => {
         <div className="lines"></div>
       </div>
       <div className="downlines">
-        <CircleBlue exist={props.exist1} />
-        <CircleBlue exist={props.exist2} />
+        <CircleX4 exist={props.exist1} />
+        <CircleX4 exist={props.exist2} />
       </div>
       <div className="items">
         <div className="lines"></div>

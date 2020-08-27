@@ -5,8 +5,14 @@ function MyApp({ Component, pageProps }) {
   const account = {
     address: "",
   };
+  const detailViewAccount = {
+    detailViewAccount: "",
+  };
+  const matrixView = {
+    matrixView: "",
+  };
   return (
-    <AccountProvider value={account}>
+    <AccountProvider value={(account, matrixView, detailViewAccount)}>
       <Component {...pageProps} />
     </AccountProvider>
   );
